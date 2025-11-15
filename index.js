@@ -1,12 +1,12 @@
 const path = require("path");
 const express = require("express");
 const { spawn } = require("child_process");
-
+require("dotenv").config();
 const ytDlpLinuxBinaryPath = path.resolve("./yt-dlp");
 const ytDlpWindowsBinaryPath = path.resolve("./yt-dlp");
 
 const app = express();
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.get("/", (req, res) => {
   let jsonData = "";
   const url = "https://www.youtube.com/watch?v=QpcNM3I7mrI";
