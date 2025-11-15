@@ -11,8 +11,8 @@ app.get("/", (req, res) => {
   let jsonData = "";
   const url = "https://www.youtube.com/watch?v=QpcNM3I7mrI";
   const ytdlp = spawn(ytDlpLinuxBinaryPath, ["-j", "-F", "-o", "-", url]);
-  ytdlp.stdout.on("data", (chund) => console.log(chund.toString()));
-  ytdlp.stderr.on("data", (chund) => (jsonData += chund.toString()));
+  ytdlp.stdout.on("data", (chunk) => (jsonData += chunk.toString()));
+  ytdlp.stderr.on("data", (chunk) => (jsonData += chunk.toString()));
   ytdlp.on("close", (chund) => res.send(jsonData));
 });
 
