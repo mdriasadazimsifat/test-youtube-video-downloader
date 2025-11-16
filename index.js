@@ -10,7 +10,17 @@ const port = process.env.PORT || 8000;
 app.get("/", (req, res) => {
   let jsonData = "";
   const url = "https://www.youtube.com/watch?v=QpcNM3I7mrI";
-  const ytdlp = spawn(ytDlpLinuxBinaryPath, ["-j", "-F", "-o", "-", url]);
+  const ytdlp = spawn(ytDlpLinuxBinaryPath, [
+    "--cookies",
+    "cookies.txt",
+    "--extractor-args",
+    "youtube:player_client=default",
+    "-j",
+    "-F",
+    "-o",
+    "-",
+    url,
+  ]);
   ytdlp.stdout.on("data", (chunk) => (jsonData += chunk.toString()));
   ytdlp.stderr.on("data", (chunk) => (jsonData += chunk.toString()));
   ytdlp.on("close", (chund) => res.send(jsonData));
